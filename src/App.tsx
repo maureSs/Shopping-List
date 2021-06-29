@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import shortid from 'shortid';
+// Components
+import ItemForm from './components/ItemForm';
+import ItemList from './components/ItemList';
+import { initialItems } from './components/initialItems';
+// Styles
+import { Wrapper, GlobalStyle } from './App.styles';
+// Interfaces
+import { ItemInterface } from './interfaces/interface';
 
-function App() {
+const App: React.FC = () => {
+  const [items, setItems] = React.useState<ItemInterface[]>(initialItems);
+
+  // Create item
+  const addItem = (newItem: string) => {
+    newItem.trim() !== '' &&
+      setItems([...items, { id: shortid.generate(), text: newItem }]);
+  };
+
+  // Delete Item
+  const handleItemRemove = (id: string) => {
+    const newItemsState: ItemInterface[] = items.filter(
+      (item: ItemInterface) => item.id !== id
+    );
+    setItems(newItemsState);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <div>
+          <React.Fragment>
+            <h2>Shopping List</h2>
+            <ItemList items={items} handleItemRemove={handleItemRemove} />
+            <ItemForm addItem={addItem} />
+          </React.Fragment>
+        </div>
+      </Wrapper>
+    </>
   );
-}
+};
 
 export default App;
