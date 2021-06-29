@@ -36,3 +36,5 @@ Shopping List App made with Typescript and React.js
 Styled with styled-components.
 
 UI from MATERIAL-UI.
+
+Made by Maures :)
