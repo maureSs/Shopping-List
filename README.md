@@ -37,4 +37,4 @@ Styled with styled-components.
 
 UI from MATERIAL-UI.
 
-Made by Maures :)
+Made by maureS :)
